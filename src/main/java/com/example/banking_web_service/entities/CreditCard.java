@@ -1,9 +1,11 @@
 package com.example.banking_web_service.entities;
 
+import com.example.banking_web_service.dto.CreditCardDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -11,46 +13,69 @@ import java.util.HashSet;
 import java.util.Random;
 
 @Entity
-@Setter
-@Getter
+@Data
+@AllArgsConstructor
+@Builder
 public class CreditCard {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private StringBuilder cardNumber;
-    private LocalDate validTo;
-    private StringBuilder cod;
-    private String emailOfAccount;
+    private String card;
+    private String valid;
+    private String cod;
+    private float balance;
+    private String owner;
+    private String emailOfOwner;
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+    @JsonIgnore
+    public String getEmailOfOwner() {
+        return emailOfOwner;
+    }
+
+    public CreditCardDto dto(){
+        return new CreditCardDto(card,String.format("%.2f",balance));
+    }
     public CreditCard(){
-        cardNumber=new StringBuilder();
-        cod=new StringBuilder();
+        balance=0;
+        createCreditCard();
     }
     public void createCreditCard(){
-        createCod();
-        createCardNumber();
-        createDateValidity();
+        cod=createCod();
+        card=createCardNumber();
+        valid=createDateValidity();
     }
-    public void createDateValidity(){
-        validTo=LocalDate.now();
-        validTo=validTo.plusYears(8);
+    public String createDateValidity(){
+        LocalDate localDate=LocalDate.now();
+        localDate=localDate.plusYears(8);
+        int month=localDate.getMonthValue();
+        if(month<10)return "0"+month+"/"+localDate.getYear();
+        return month+"/"+localDate.getYear();
     }
-    public void createCardNumber(){
+    public String createCardNumber(){
+        StringBuilder stringBuilderCard=new StringBuilder("400000");
         Random rand = new Random();
-        for (int i = 0; i < 15; i++) {
-            cardNumber.append(rand.nextInt(10));
+        for (int i = 0; i < 9; i++) {
+            stringBuilderCard.append(rand.nextInt(10));
         }
-        cardNumber.append(luhn());
+        stringBuilderCard.append(luhn(stringBuilderCard));
+        return stringBuilderCard.toString();
     }
-    public void createCod(){
+    public String createCod(){
+        StringBuilder stringBuilderCod=new StringBuilder();
         Random rand = new Random();
         for (int i = 0; i < 3; i++) {
-            cod.append(rand.nextInt(10));
+            stringBuilderCod.append(rand.nextInt(10));
         }
+        return stringBuilderCod.toString();
     }
-    public int luhn(){
+    public int luhn(StringBuilder stringBuilderCard){
         int[] numberOfCard=new int[15];
         for(int i=0;i<15;i++){
-            numberOfCard[i]=Integer.parseInt(String.valueOf(cardNumber.charAt(i)));
+            numberOfCard[i]=Integer.parseInt(String.valueOf(stringBuilderCard.charAt(i)));
         }
         for(int i=0;i<15;i+=2){
             numberOfCard[i]*=2;
