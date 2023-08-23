@@ -35,6 +35,10 @@ public class AccountData {
         Optional<Account> someAccount =accountInfoRepository.findByEmailIgnoreCase(account.getEmail());
         if(someAccount.isPresent())throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Email has already used!");
     }
+    public boolean accountTableEmpty(){
+        List<Account> accounts=accountInfoRepository.findAll();
+        return accounts.isEmpty();
+    }
 
 
 }
