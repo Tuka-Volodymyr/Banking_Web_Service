@@ -2,6 +2,9 @@ package com.example.banking_web_service.services;
 
 import com.example.banking_web_service.data.GlobalEventData;
 import com.example.banking_web_service.data.OperationEventData;
+import com.example.banking_web_service.dto.MoneyToCard;
+import com.example.banking_web_service.entities.Account;
+import com.example.banking_web_service.entities.CreditCard;
 import com.example.banking_web_service.entities.GlobalEvent;
 import com.example.banking_web_service.entities.OperationEvent;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +20,6 @@ import java.util.List;
 public class EventService {
     @Autowired
     private GlobalEventData globalEventData;
-
     @Autowired
     private HttpServletRequest request;
     @Autowired
@@ -25,11 +27,11 @@ public class EventService {
     public List<GlobalEvent> getGlobalEvents(){
        return globalEventData.findAllEvent();
     }
-    public List<OperationEvent> getOperationEvents(UserDetails userDetails){
-        return operationEventData.findOperationEventByEmail(userDetails.getUsername(),userDetails.getUsername());
+    public List<OperationEvent> getOperationEvents(String email){
+        return operationEventData.findOperationEventByEmail(email,email);
     }
 
-    public void createAccount(String email){
+    public GlobalEvent createAccount(String email){
         GlobalEvent globalEvent =new GlobalEvent(
                 LocalDate.now().toString(),
                 "CREATE_ACCOUNT",
@@ -38,6 +40,7 @@ public class EventService {
                 request.getRequestURI()
         );
         globalEventData.saveGlobalEvent(globalEvent);
+        return globalEvent;
     }
     public void createCard(String email){
         GlobalEvent globalEvent =new GlobalEvent(
@@ -49,29 +52,44 @@ public class EventService {
         );
         globalEventData.saveGlobalEvent(globalEvent);
     }
+    public void changePassword(String email){
+        GlobalEvent globalEvent =new GlobalEvent(
+                LocalDate.now().toString(),
+                "CHANGE_PASSWORD",
+                email,
+                email,
+                request.getRequestURI()
+        );
+        globalEventData.saveGlobalEvent(globalEvent);
+    }
 
-    public void addMoney(String email,float amount){
+    public void addMoney(CreditCard card,MoneyToCard amount){
         OperationEvent operationEvent =new OperationEvent(
                 LocalDate.now().toString(),
                 "ADD_MONEY",
-                amount,
-                email,
-                email,
+                amount.getAmount(),
+                card.getBalance(),
+                0,
+                card.getEmailOfOwner(),
+                card.getEmailOfOwner(),
                 request.getRequestURI()
         );
         operationEventData.saveOperationEvent(operationEvent);
     }
 
-    public void transaction(String subject,String object,float amount){
+    public OperationEvent transaction(CreditCard subject, CreditCard object, MoneyToCard moneyToCard){
         OperationEvent operationEvent =new OperationEvent(
                 LocalDate.now().toString(),
-                "DO_TRANSACTION",
-                amount,
-                subject,
-                object,
+                "TRANSACTION",
+                moneyToCard.getAmount(),
+                subject.getBalance(),
+                object.getBalance(),
+                subject.getEmailOfOwner(),
+                object.getEmailOfOwner(),
                 request.getRequestURI()
         );
         operationEventData.saveOperationEvent(operationEvent);
+        return operationEvent;
     }
 
     public void authenticationFailed(String email){
@@ -84,27 +102,74 @@ public class EventService {
         );
         globalEventData.saveGlobalEvent(globalEvent);
     }
-    public void lock(String email){
+    public void authorizationFailed(){
         UserDetails userDetails=getUserDetails();
         GlobalEvent globalEvent =new GlobalEvent(
                 LocalDate.now().toString(),
-                "LOCK_USER",
+                "ACCESS_DENIED",
                 userDetails.getUsername(),
-                String.format("Lock user: %s",email),
+                userDetails.getUsername(),
                 request.getRequestURI()
         );
         globalEventData.saveGlobalEvent(globalEvent);
     }
-    public void unlock(String email){
+    public GlobalEvent lockAccount(Account account){
         UserDetails userDetails=getUserDetails();
         GlobalEvent globalEvent =new GlobalEvent(
                 LocalDate.now().toString(),
-                "UNLOCK_USER",
+                "LOCK_ACCOUNT",
                 userDetails.getUsername(),
-                String.format("Unlock user: %s",email),
+                String.format("Lock account: %s",account.getFullName()),
                 request.getRequestURI()
         );
         globalEventData.saveGlobalEvent(globalEvent);
+        return globalEvent;
+    }
+    public GlobalEvent unlockAccount(Account account){
+        UserDetails userDetails=getUserDetails();
+        GlobalEvent globalEvent =new GlobalEvent(
+                LocalDate.now().toString(),
+                "UNLOCK_ACCOUNT",
+                userDetails.getUsername(),
+                String.format("Unlock account: %s",account.getFullName()),
+                request.getRequestURI()
+        );
+        globalEventData.saveGlobalEvent(globalEvent);
+        return globalEvent;
+    }
+    public GlobalEvent lockCard(CreditCard creditCard){
+        GlobalEvent globalEvent =new GlobalEvent(
+                LocalDate.now().toString(),
+                "LOCK_CARD",
+                creditCard.getEmailOfOwner(),
+                String.format("Lock card: %s",creditCard.getCard()),
+                request.getRequestURI()
+        );
+        globalEventData.saveGlobalEvent(globalEvent);
+        return globalEvent;
+    }
+    public GlobalEvent unlockCard(CreditCard creditCard){
+        GlobalEvent globalEvent =new GlobalEvent(
+                LocalDate.now().toString(),
+                "UNLOCK_CARD",
+                creditCard.getEmailOfOwner(),
+                String.format("Unlock card: %s",creditCard.getCard()),
+                request.getRequestURI()
+        );
+        globalEventData.saveGlobalEvent(globalEvent);
+        return globalEvent;
+    }
+    public GlobalEvent newLimitOfTurnover(CreditCard creditCard){
+        UserDetails userDetails=getUserDetails();
+        GlobalEvent globalEvent =new GlobalEvent(
+                LocalDate.now().toString(),
+                "LIMIT_OF_TURNOVER_ENLARGED",
+                userDetails.getUsername(),
+                String.format("%s your limit of turnover: %s",creditCard.getEmailOfOwner(),creditCard.getLimitOfTurnover()),
+                request.getRequestURI()
+        );
+        globalEventData.saveGlobalEvent(globalEvent);
+        return globalEvent;
     }
     public void bruteForce(String email){
         GlobalEvent globalEvent =new GlobalEvent(
