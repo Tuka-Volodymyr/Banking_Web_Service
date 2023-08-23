@@ -1,5 +1,6 @@
 package com.example.banking_web_service.controllers;
 
+import com.example.banking_web_service.dto.ChangeTurnoverLimit;
 import com.example.banking_web_service.dto.MoneyToCard;
 import com.example.banking_web_service.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CardController {
@@ -18,7 +16,7 @@ public class CardController {
     private CardService cardService;
     @GetMapping("/bank/add/card")
     public ResponseEntity<?> addCard(@AuthenticationPrincipal UserDetails userDetails){
-        return new ResponseEntity<>(cardService.addCreditCard(userDetails), HttpStatus.CREATED);
+        return new ResponseEntity<>(cardService.addCreditCard(userDetails.getUsername()), HttpStatus.CREATED);
     }
     @GetMapping("/bank/card/info")
     public ResponseEntity<?> getInfoAboutCard(@AuthenticationPrincipal UserDetails userDetails){
@@ -32,5 +30,16 @@ public class CardController {
     public ResponseEntity<?> transferMoney(@RequestBody MoneyToCard moneyToCard,@AuthenticationPrincipal UserDetails userDetails){
         return new ResponseEntity<>(cardService.transferMoney(moneyToCard,userDetails), HttpStatus.OK);
     }
-
+    @GetMapping("/bank/card/lock")
+    public ResponseEntity<?> lockCard(@AuthenticationPrincipal UserDetails userDetails){
+        return new ResponseEntity<>(cardService.lockCard(userDetails.getUsername()), HttpStatus.LOCKED);
+    }
+    @GetMapping("/bank/card/unlock")
+    public ResponseEntity<?> unlockCard(@AuthenticationPrincipal UserDetails userDetails){
+        return new ResponseEntity<>(cardService.unlockCard(userDetails.getUsername()), HttpStatus.OK);
+    }
+    @PostMapping("/bank/card/change/limitOfTurnover")
+    public ResponseEntity<?> changeMaxTurnover(@RequestBody ChangeTurnoverLimit changeTurnoverLimit) {
+        return new ResponseEntity<>(cardService.newTurnoverLimit(changeTurnoverLimit), HttpStatus.OK);
+    }
 }

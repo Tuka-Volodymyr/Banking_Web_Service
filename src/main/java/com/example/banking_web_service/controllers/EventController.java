@@ -19,6 +19,6 @@ public class EventController {
     }
     @GetMapping("/bank/history")
     public ResponseEntity<?> getHistoryTransaction(@AuthenticationPrincipal UserDetails userDetails){
-        return new ResponseEntity<>(eventService.getOperationEvents(userDetails), HttpStatus.OK);
+        return new ResponseEntity<>(eventService.getOperationEvents(userDetails.getUsername()), HttpStatus.OK);
     }
 }
