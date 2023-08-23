@@ -1,5 +1,7 @@
 package com.example.banking_web_service.configuration;
 
+import com.example.banking_web_service.handler.AuthorizationHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,7 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration {
-
+    @Autowired
+    private AuthorizationHandler authorizationHandler;
     @Bean
     public UserDetailsService userDetailsService(){
         return new InfoAccountService();
@@ -25,10 +28,16 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf().disable()
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/bank/addAccount","/error/**","/bank/card/balance/add/money").permitAll()
-                        .requestMatchers("/bank/**").authenticated())
+                        .requestMatchers("/bank/addAccount","/error/**",
+                                "/bank/card/balance/add/money","bank/change/password")
+                        .permitAll()
+                        .requestMatchers("/bank/lock/account","/bank/unlock/account",
+                                "/bank/events", "/bank/card/change/limitOfTurnover")
+                        .hasRole("ADMINISTRATOR")
+                        .requestMatchers("/bank/**").hasRole("CUSTOMER"))
                 .httpBasic()
                 .and()
+                .exceptionHandling(exceptionHandling->exceptionHandling.accessDeniedHandler(authorizationHandler))
                 .build();
     }
     @Bean
