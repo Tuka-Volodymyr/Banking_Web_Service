@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface OperationEventInfoRepository extends JpaRepository<OperationEvent,Long> {
     List<OperationEvent> findBySubjectOrObject(String subject,String object);
+    List<OperationEvent> findByObjectAndDate(String object,String date);
+
 
 }
