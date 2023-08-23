@@ -13,8 +13,12 @@ import java.util.Optional;
 
 @Component
 public class CardData {
+    private final CreditCardInfoRepository creditCardInfoRepository;
     @Autowired
-    private CreditCardInfoRepository creditCardInfoRepository;
+    public CardData(CreditCardInfoRepository creditCardInfoRepository) {
+        this.creditCardInfoRepository = creditCardInfoRepository;
+    }
+
     public void saveCreditCard(CreditCard creditCard){
         creditCardInfoRepository.save(creditCard);
     }
