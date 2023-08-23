@@ -1,18 +1,16 @@
 package com.example.banking_web_service.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-
+import java.util.List;
 
 
 @Entity
@@ -35,10 +33,7 @@ public class Account {
     private boolean lockStatus;
     @JsonIgnore
     private int failedAttempts;
-
-
-
-
-//    private HashSet<String> role;
-
+    @JsonIgnore
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles=new ArrayList<>();
 }
