@@ -42,11 +42,9 @@ public class AuthenticationEventHandler {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Account is lock!!!");
             }
             accountService.increaseFailedAttempts(account);
-            if (account.getFailedAttempts() >= maxFailedAttempts) {
+            if (account.getFailedAttempts() >= maxFailedAttempts&&!account.getRoles().contains("ROLE_ADMINISTRATOR")) {
                 accountService.lockAccount(account.getEmail());
-                eventService.authenticationFailed(email);
                 eventService.bruteForce(account.getEmail());
-
             }
         } else {
             eventService.authenticationFailed(email);
