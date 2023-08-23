@@ -17,4 +17,8 @@ public class OperationEventData {
     public List<OperationEvent> findOperationEventByEmail(String subject,String object){
        return operationEventInfoRepository.findBySubjectOrObject(subject,object);
     }
+    public List<OperationEvent> findOperationEventByEmailObjectAndData(String object,String data){
+        return operationEventInfoRepository.findByObjectAndDate(object,data);
+    }
+
 }
