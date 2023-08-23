@@ -22,13 +22,17 @@ public class OperationEvent {
     private String date;
     private String action;
     private float amount;
+    private float subjectBalance;
+    private float objectBalance;
     private String subject;
     private String object;
     private String path;
-    public OperationEvent(String date, String action,float amount, String subject, String object, String path){
+    public OperationEvent(String date, String action,float amount, float subjectBalance,float objectBalance,String subject, String object, String path){
         this.date=date;
         this.action=action;
         this.amount=amount;
+        this.subjectBalance=subjectBalance;
+        this.objectBalance=objectBalance;
         this.subject=subject;
         this.object=object;
         this.path=path;

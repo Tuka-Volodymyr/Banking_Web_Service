@@ -23,10 +23,13 @@ public class CreditCard {
     private Long id;
     private String card;
     private String valid;
-    private String cod;
+    private String CVV;
     private float balance;
     private String owner;
     private String emailOfOwner;
+    private boolean cardIsLocked;
+    private float turnover;
+    private float limitOfTurnover;
     @JsonIgnore
     public Long getId() {
         return id;
@@ -40,13 +43,17 @@ public class CreditCard {
         return new CreditCardDto(card,String.format("%.2f",balance));
     }
     public CreditCard(){
+        turnover=0;
+        limitOfTurnover=400000;
+        cardIsLocked=false;
         balance=0;
         createCreditCard();
     }
     public void createCreditCard(){
-        cod=createCod();
+        CVV=createCVV();
         card=createCardNumber();
         valid=createDateValidity();
+
     }
     public String createDateValidity(){
         LocalDate localDate=LocalDate.now();
@@ -64,7 +71,7 @@ public class CreditCard {
         stringBuilderCard.append(luhn(stringBuilderCard));
         return stringBuilderCard.toString();
     }
-    public String createCod(){
+    public String createCVV(){
         StringBuilder stringBuilderCod=new StringBuilder();
         Random rand = new Random();
         for (int i = 0; i < 3; i++) {
