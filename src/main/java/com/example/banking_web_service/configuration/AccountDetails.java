@@ -2,9 +2,12 @@ package com.example.banking_web_service.configuration;
 
 import com.example.banking_web_service.entities.Account;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AccountDetails implements UserDetails {
 
@@ -14,7 +17,9 @@ public class AccountDetails implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        for(String role: account.getRoles())authorities.add(new SimpleGrantedAuthority(role));
+        return authorities;
     }
 
     @Override
