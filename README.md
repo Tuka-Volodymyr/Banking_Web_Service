@@ -35,11 +35,13 @@ Returns:
 Example request:
 * POST /bank/addAccount
 
+```json
 {
      "fullName": "Tuka Volodymyr",
      "email": "fff@gmail.com",
      "password": "1111"
 }
+```
 
 
 ✔️POST /bank/change/password
@@ -57,12 +59,12 @@ Returns:
 
 Example request:
 * http://localhost:3306/bank/change/password?code=4596
-
+```json
 {
     "email": "tukavovy@gmail.com",
     "newPassword": "1111"
 }
-
+```
 
 ✔️POST /bank/lock/account
 * This method allows locking an account with the specified email.
@@ -146,11 +148,12 @@ Returns:
 
 Example request:
 * POST /bank/card/balance/add/money
-
+```json
 {
     "card":"4000001571154806",
     "amount":200000
 }
+```
 
 
 ✔️POST /bank/card/balance/transfer/money
@@ -168,11 +171,12 @@ Returns:
 
 Example request:
 * POST /bank/card/balance/transfer/money
-
+```json
 {
     "card":"4000000187139474",
     "amount":2000
 }
+```
 
 
 ✔️GET /bank/card/lock
@@ -220,11 +224,12 @@ Returns:
 
 Example request:
 * POST /bank/card/change/limitOfTurnover
-
+```json
 {
     "limitOfTurnover":1000000,
     "email":"tukavolody@gmail.com"
 }
+```
 
 ### Class EventController
 
