@@ -52,6 +52,8 @@ Parameters:
 Returns:
 * Status code 200 OK on successful password change.
 * Status code 400 Bad Request if the input data is invalid.
+* Status code 401 Unauthorized if the user is not authenticated.
+* Status code 403 Unauthorization if the user is not unauthorization.
 
 Example request:
 * http://localhost:3306/bank/change/password?code=4596
@@ -70,6 +72,8 @@ Parameters:
 
 Returns:
 * Status code 423 Locked on successful account locking.
+* Status code 401 Unauthorized if the user is not authenticated.
+*  Status code 403 Unauthorization if the user is not unauthorization.
 
 Example request:
 * POST /bank/lock/account?email=john@example.com
@@ -83,6 +87,8 @@ Parameters:
 
 Returns:
 * Status code 200 OK on successful account unlocking.
+* Status code 403 Unauthorization if the user is not unauthorization.
+* Status code 401 Unauthorized if the user is not authenticated.
   
 Example request:
 * POST /bank/unlock/account?email=john@example.com
@@ -106,6 +112,7 @@ Parameters:
 
 Returns:
 * Status code 201 Created on successful card creation.
+* Status code 403 Unauthorization if the user is not unauthorization.
 * Status code 401 Unauthorized if the user is not authenticated.
   
 Example request:
@@ -120,6 +127,7 @@ Parameters:
 
 Returns:
 * Status code 200 OK on successful retrieval of card information.
+* Status code 403 Unauthorization if the user is not unauthorization.
 * Status code 401 Unauthorized if the user is not authenticated.
 
 Example request:
@@ -155,6 +163,7 @@ Parameters:
 Returns:
 * Status code 200 OK on successful money transfer.
 * Status code 401 Unauthorized if the user is not authenticated.
+* Status code 403 Unauthorization if the user is not unauthorization.
 * Status code 400 Bad Request if the input data is invalid.
 
 Example request:
@@ -174,6 +183,7 @@ Parameters:
   
 Returns:
 * Status code 423 Locked on successful card locking.
+* Status code 403 Unauthorization if the user is not unauthorization.
 * Status code 401 Unauthorized if the user is not authenticated.
 
 Example request:
@@ -188,6 +198,7 @@ Parameters:
 
 Returns:
 * Status code 200 OK on successful card unlocking.
+* Status code 403 Unauthorization if the user is not unauthorization.
 * Status code 401 Unauthorized if the user is not authenticated.
 
 Example request:
@@ -204,6 +215,7 @@ Parameters:
 Returns:
 * Status code 200 OK on successful turnover limit change.
 * Status code 401 Unauthorized if the user is not authenticated.
+* Status code 403 Unauthorization if the user is not unauthorization.
 * Status code 400 Bad Request if the input data is invalid.
 
 Example request:
@@ -214,4 +226,42 @@ Example request:
     "email":"tukavolody@gmail.com"
 }
 
+### Class EventController
+
+Description
+* EventController is a class responsible for handling HTTP requests related to events, both global events and user transaction history.
+
+Dependencies
+* This controller uses the EventService to retrieve event data.
+
+#### Methods
+
+
+✔️GET /bank/events
+* This method allows users to retrieve global events.
+
+Parameters:
+* No parameters required.
+
+Returns:
+* Status code 200 OK on successful retrieval of global events.
+* Status code 401 Unauthorized if the user is not authenticated.
+* Status code 403 Unauthorization if the user is not unauthorization.
+
+Example request:
+* GET /bank/events
+
+✔️GET /bank/history
+* This method allows users to retrieve their transaction history.
+
+Parameters:
+* Authentication context is used to retrieve the currently authenticated user details (UserDetails).
+
+Returns:
+* Status code 200 OK on successful retrieval of transaction history.
+* Status code 403 Unauthorization if the user is not unauthorization.
+* Status code 401 Unauthorized if the user is not authenticated.
+
+Example request:
+* GET /bank/events
 
