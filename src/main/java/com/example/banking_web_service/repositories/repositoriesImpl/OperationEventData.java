@@ -1,6 +1,6 @@
-package com.example.banking_web_service.data;
+package com.example.banking_web_service.repositories.repositoriesImpl;
 
-import com.example.banking_web_service.entities.OperationEvent;
+import com.example.banking_web_service.model.entities.OperationEvent;
 import com.example.banking_web_service.repositories.OperationEventInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.example.banking_web_service.repositories;
 
-import com.example.banking_web_service.entities.SentCode;
+import com.example.banking_web_service.model.entities.SentCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

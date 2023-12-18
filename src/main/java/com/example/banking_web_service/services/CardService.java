@@ -1,15 +1,15 @@
 package com.example.banking_web_service.services;
 
-import com.example.banking_web_service.data.AccountData;
-import com.example.banking_web_service.data.CardData;
-import com.example.banking_web_service.dto.ChangeTurnoverLimit;
-import com.example.banking_web_service.dto.CreditCardDto;
-import com.example.banking_web_service.dto.MoneyToCard;
-import com.example.banking_web_service.entities.Account;
-import com.example.banking_web_service.entities.CreditCard;
-import com.example.banking_web_service.entities.GlobalEvent;
-import com.example.banking_web_service.entities.OperationEvent;
-import com.example.banking_web_service.exceptions.CardIsLockException;
+import com.example.banking_web_service.repositories.repositoriesImpl.AccountData;
+import com.example.banking_web_service.repositories.repositoriesImpl.CardData;
+import com.example.banking_web_service.model.dto.ChangeTurnoverLimit;
+import com.example.banking_web_service.model.dto.CreditCardDto;
+import com.example.banking_web_service.model.dto.MoneyToCard;
+import com.example.banking_web_service.model.entities.Account;
+import com.example.banking_web_service.model.entities.CreditCard;
+import com.example.banking_web_service.model.entities.GlobalEvent;
+import com.example.banking_web_service.model.entities.OperationEvent;
+import com.example.banking_web_service.model.exceptions.CardIsLockException;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;

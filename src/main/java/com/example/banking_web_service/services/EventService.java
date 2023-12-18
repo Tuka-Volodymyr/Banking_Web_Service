@@ -1,12 +1,12 @@
 package com.example.banking_web_service.services;
 
-import com.example.banking_web_service.data.GlobalEventData;
-import com.example.banking_web_service.data.OperationEventData;
-import com.example.banking_web_service.dto.MoneyToCard;
-import com.example.banking_web_service.entities.Account;
-import com.example.banking_web_service.entities.CreditCard;
-import com.example.banking_web_service.entities.GlobalEvent;
-import com.example.banking_web_service.entities.OperationEvent;
+import com.example.banking_web_service.repositories.repositoriesImpl.GlobalEventData;
+import com.example.banking_web_service.repositories.repositoriesImpl.OperationEventData;
+import com.example.banking_web_service.model.dto.MoneyToCard;
+import com.example.banking_web_service.model.entities.Account;
+import com.example.banking_web_service.model.entities.CreditCard;
+import com.example.banking_web_service.model.entities.GlobalEvent;
+import com.example.banking_web_service.model.entities.OperationEvent;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +30,6 @@ public class EventService {
     public List<OperationEvent> getOperationEvents(String email){
         return operationEventData.findOperationEventByEmail(email,email);
     }
-
     public GlobalEvent createAccount(String email){
         GlobalEvent globalEvent =new GlobalEvent(
                 LocalDate.now().toString(),

@@ -1,7 +1,6 @@
 package com.example.banking_web_service.repositories;
 
-import com.example.banking_web_service.entities.Account;
-import com.example.banking_web_service.entities.CreditCard;
+import com.example.banking_web_service.model.entities.CreditCard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

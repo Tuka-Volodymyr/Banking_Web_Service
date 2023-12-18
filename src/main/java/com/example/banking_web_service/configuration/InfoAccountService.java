@@ -1,14 +1,11 @@
 package com.example.banking_web_service.configuration;
 
-import com.example.banking_web_service.data.AccountData;
-import com.example.banking_web_service.entities.Account;
-import com.example.banking_web_service.repositories.AccountInfoRepository;
+import com.example.banking_web_service.repositories.repositoriesImpl.AccountData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class InfoAccountService implements UserDetailsService {

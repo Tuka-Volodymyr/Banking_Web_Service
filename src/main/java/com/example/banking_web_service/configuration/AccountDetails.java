@@ -1,6 +1,6 @@
 package com.example.banking_web_service.configuration;
 
-import com.example.banking_web_service.entities.Account;
+import com.example.banking_web_service.model.entities.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

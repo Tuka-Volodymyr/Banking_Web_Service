@@ -1,8 +1,7 @@
-package com.example.banking_web_service.data;
+package com.example.banking_web_service.repositories.repositoriesImpl;
 
-import com.example.banking_web_service.entities.Account;
-import com.example.banking_web_service.entities.CreditCard;
-import com.example.banking_web_service.exceptions.CreditCardNotFoundException;
+import com.example.banking_web_service.model.entities.CreditCard;
+import com.example.banking_web_service.model.exceptions.CreditCardNotFoundException;
 import com.example.banking_web_service.repositories.CreditCardInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

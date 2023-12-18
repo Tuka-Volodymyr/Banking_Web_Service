@@ -1,7 +1,7 @@
 package com.example.banking_web_service.controllers;
 
-import com.example.banking_web_service.dto.ChangeTurnoverLimit;
-import com.example.banking_web_service.dto.MoneyToCard;
+import com.example.banking_web_service.model.dto.ChangeTurnoverLimit;
+import com.example.banking_web_service.model.dto.MoneyToCard;
 import com.example.banking_web_service.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

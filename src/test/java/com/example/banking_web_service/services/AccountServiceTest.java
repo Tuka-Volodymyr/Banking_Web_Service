@@ -1,15 +1,13 @@
 package com.example.banking_web_service.services;
-import com.example.banking_web_service.data.AccountData;
-import com.example.banking_web_service.data.CardData;
-import com.example.banking_web_service.data.SentCodeData;
-import com.example.banking_web_service.dto.ChangePassword;
-import com.example.banking_web_service.entities.Account;
-import com.example.banking_web_service.entities.GlobalEvent;
-import com.example.banking_web_service.entities.SentCode;
+import com.example.banking_web_service.repositories.repositoriesImpl.AccountData;
+import com.example.banking_web_service.repositories.repositoriesImpl.SentCodeData;
+import com.example.banking_web_service.model.dto.ChangePassword;
+import com.example.banking_web_service.model.entities.Account;
+import com.example.banking_web_service.model.entities.GlobalEvent;
+import com.example.banking_web_service.model.entities.SentCode;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 

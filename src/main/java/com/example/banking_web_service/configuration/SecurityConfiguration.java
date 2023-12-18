@@ -1,6 +1,6 @@
 package com.example.banking_web_service.configuration;
 
-import com.example.banking_web_service.handler.AuthorizationHandler;
+import com.example.banking_web_service.configuration.handler.AuthorizationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

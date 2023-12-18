@@ -1,4 +1,4 @@
-package com.example.banking_web_service.handler;
+package com.example.banking_web_service.configuration.handler;
 
 
 import com.example.banking_web_service.services.EventService;

@@ -25,7 +25,8 @@ private AccountService accountServiceMock;
     public void setUp() {
         accountController=new AccountController();
         accountServiceMock=mock(AccountService.class);
-        accountController.setAccountService(accountServiceMock);    }
+        accountController.setAccountService(accountServiceMock);
+    }
     @Test
     public void addAccountTest_success() {
         when(accountServiceMock.addAccount(firstAccount)).thenReturn(globalEventAddAdminAccount);

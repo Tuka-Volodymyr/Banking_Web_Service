@@ -1,4 +1,4 @@
-package com.example.banking_web_service.entities;
+package com.example.banking_web_service.model.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

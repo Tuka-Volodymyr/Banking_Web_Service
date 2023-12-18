@@ -1,4 +1,4 @@
-package com.example.banking_web_service.dto;
+package com.example.banking_web_service.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

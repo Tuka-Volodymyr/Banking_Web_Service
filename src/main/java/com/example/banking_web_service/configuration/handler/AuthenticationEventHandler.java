@@ -1,11 +1,9 @@
-package com.example.banking_web_service.handler;
+package com.example.banking_web_service.configuration.handler;
 
-import com.example.banking_web_service.data.AccountData;
-import com.example.banking_web_service.entities.Account;
+import com.example.banking_web_service.model.entities.Account;
 import com.example.banking_web_service.repositories.AccountInfoRepository;
 import com.example.banking_web_service.services.AccountService;
 import com.example.banking_web_service.services.EventService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;

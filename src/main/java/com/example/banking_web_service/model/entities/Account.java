@@ -1,4 +1,4 @@
-package com.example.banking_web_service.entities;
+package com.example.banking_web_service.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

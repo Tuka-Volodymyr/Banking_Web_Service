@@ -1,4 +1,4 @@
-package com.example.banking_web_service.dto;
+package com.example.banking_web_service.model.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;

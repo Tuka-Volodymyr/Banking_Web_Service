@@ -2,30 +2,21 @@ package com.example.banking_web_service.services;
 
 
 import com.example.banking_web_service.configuration.AccountDetails;
-import com.example.banking_web_service.configuration.PrincipalDetailsArgumentResolver;
-import com.example.banking_web_service.controllers.AccountControllerTest;
-import com.example.banking_web_service.data.AccountData;
-import com.example.banking_web_service.data.CardData;
-import com.example.banking_web_service.dto.CreditCardDto;
+import com.example.banking_web_service.repositories.repositoriesImpl.AccountData;
+import com.example.banking_web_service.repositories.repositoriesImpl.CardData;
+import com.example.banking_web_service.model.dto.CreditCardDto;
 
-import com.example.banking_web_service.dto.MoneyToCard;
-import com.example.banking_web_service.entities.CreditCard;
-import com.example.banking_web_service.entities.GlobalEvent;
-import com.example.banking_web_service.entities.OperationEvent;
+import com.example.banking_web_service.model.dto.MoneyToCard;
+import com.example.banking_web_service.model.entities.CreditCard;
+import com.example.banking_web_service.model.entities.GlobalEvent;
+import com.example.banking_web_service.model.entities.OperationEvent;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.server.ResponseStatusException;
 
 
 import java.time.LocalDate;
-
-import static com.example.banking_web_service.controllers.AccountControllerTest.*;
-import static com.example.banking_web_service.controllers.CardControllerTest.*;
 
 import static com.example.banking_web_service.services.AccountServiceTest.*;
 import static org.junit.Assert.assertEquals;

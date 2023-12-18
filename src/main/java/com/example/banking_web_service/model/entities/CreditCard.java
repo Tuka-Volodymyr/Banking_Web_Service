@@ -1,15 +1,12 @@
-package com.example.banking_web_service.entities;
+package com.example.banking_web_service.model.entities;
 
-import com.example.banking_web_service.dto.CreditCardDto;
+import com.example.banking_web_service.model.dto.CreditCardDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Random;
 
 @Entity
